@@ -1,6 +1,6 @@
 import { g, auth, config } from '@grafbase/sdk'
 
-const NFT = g.model('Nft', {
+const NFT = g.model('NFT', {
   name: g.string().unique(),
   price: g.float(),
   creator: g.string(),
@@ -12,11 +12,17 @@ const NFT = g.model('Nft', {
   rules.private().create().update().delete();
 })
 
+const FavoriteItem = g.model("FavoriteItem", {
+  NFTs: g.relation(() => NFT).optional().list(),
+  createdBy: g.relation(() => User).optional()
+})
+
 const Bid = g.model('Bid', {
   name: g.string().unique(),
   price: g.float(),
   image: g.url().unique(),
-  date: g.date()
+  date: g.date(),
+  relatedNFT: g.relation(() => NFT)
 })
 
 
@@ -28,7 +34,8 @@ const User = g.model('User', {
   githubUrl: g.url().optional(),
   linkedInUrl: g.url().optional(),
   // @ts-ignore
-  nfts: g.relation(() => NFT).list().optional(),
+  bids: g.relation(() => Bid).list().optional(),
+  FavoriteGroup: g.relation(() => FavoriteItem).optional()
 }).auth((rules) => {
   rules.public().read();
 })

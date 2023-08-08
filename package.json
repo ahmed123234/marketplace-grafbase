@@ -1,0 +1,13 @@
+{
+  "name": "flexibble-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@grafbase/sdk": "^0.4.0",
+    "graphql-request": "^6.1.0"
+  },
+  "devDependencies": {
+    "@grafbase/sdk": "~0.1.0"
+  }
+}
